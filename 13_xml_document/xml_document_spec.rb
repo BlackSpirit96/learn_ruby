@@ -20,6 +20,10 @@ describe XmlDocument do
   before do
     @xml = XmlDocument.new
   end
+  
+  it "renders tags" do
+    @xml.prepare_tags(:name => 'dolly').should == "name='dolly'"
+  end
 
   it "renders an empty tag" do
     @xml.hello.should == "<hello/>"
@@ -57,6 +61,10 @@ describe XmlDocument do
     end.should == "<hello><goodbye><come_back><ok_fine be='that_way'/></come_back></goodbye></hello>"
   end
 
+  it "indent generator" do
+    @xml = XmlDocument.new(true).apply_indent(false, 2).should == "  "
+  end
+  
   it "indents" do
     @xml = XmlDocument.new(true)
     @xml.hello do
